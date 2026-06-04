@@ -4,6 +4,7 @@ public abstract class User {
     protected String name;
     protected String email;
     protected String PhoneNumber;
+    protected IOOperation[] operations;
 
     public User() {
 
@@ -43,5 +44,5 @@ public abstract class User {
         PhoneNumber = phoneNumber;
     }
 
-    abstract public void menu();
+    abstract public void menu(Database db , User user);
 }

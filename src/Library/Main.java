@@ -14,7 +14,7 @@ public class Main {
         db = new Database();
         System.out.println("Welcome to Library Management System");
         int n1;
-        do{
+        //do{
             System.out.println(" 0. Exit\n 1. LOGIN \n 2. NEW USER");
             sc = new Scanner(System.in);
             n1 = sc.nextInt();
@@ -27,7 +27,7 @@ public class Main {
                         break;
                 //default : System.out.println("There is a Error");
             }
-        }while(n1!=0);
+        //}while(n1!=0);
     }
 
     private static void login() {
@@ -40,7 +40,7 @@ public class Main {
         {
             User user = db.getUser(n);
             System.out.println("Welcome "+ user.getName());
-            user.menu();
+            user.menu(db,user);
         }
         else{
             System.out.println("User doesn't exist");
@@ -65,7 +65,7 @@ public class Main {
             user = new NormalUser(name,email,phoneNumber);
         }
         db.AddUser(user);
-        user.menu();
         System.out.println("User Account Created Successfully");
+        user.menu(db,user);
     }
 }
