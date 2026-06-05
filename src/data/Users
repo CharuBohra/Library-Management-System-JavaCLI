@@ -1,5 +1,6 @@
-c<N/>c<N/>12345<N/>Admin<NewUser/>
-charu<N/>charu@j.com<N/>12345<N/>Admin<NewUser/>
 c<N/>c<N/>123<N/>Admin<NewUser/>
-charu<N/>charu@juddoc.com<N/>12345<N/>Admin<NewUser/>
-c<N/>charu<N/>123<N/>Admin<NewUser/>
+charu<N/>charu@<N/>123<N/>Normal<NewUser/>
+charu<N/>charu<N/>123<N/>Admin<NewUser/>
+cha<N/>cha<N/>12345<N/>Normal<NewUser/>
+charu<N/>charu@admin<N/>123<N/>Admin<NewUser/>
+charu<N/>charu@normal<N/>12345<N/>Normal<NewUser/>

@@ -11,8 +11,8 @@ public class Admin extends User{
                 new AddBook(),
                 new DeleteBook(),
                 new Search(),
-                new ViewOrders(),
                 new DeleteAllData(),
+                new ViewOrders(),
                 new Exit()
         };
     }
@@ -24,8 +24,8 @@ public class Admin extends User{
                 new AddBook(),
                 new DeleteBook(),
                 new Search(),
-                new ViewOrders(),
                 new DeleteAllData(),
+                new ViewOrders(),
                 new Exit()
         };
     }
