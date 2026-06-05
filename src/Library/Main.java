@@ -14,20 +14,18 @@ public class Main {
         db = new Database();
         System.out.println("Welcome to Library Management System");
         int n1;
-        //do{
-            System.out.println(" 0. Exit\n 1. LOGIN \n 2. NEW USER");
-            sc = new Scanner(System.in);
-            n1 = sc.nextInt();
+        System.out.println(" 0. Exit\n 1. LOGIN \n 2. NEW USER");
+        sc = new Scanner(System.in);
+        n1 = sc.nextInt();
 
-            switch(n1)
-            {
-                case 1 : login();
-                        break;
-                case 2 : newUser();
-                        break;
-                //default : System.out.println("There is a Error");
-            }
-        //}while(n1!=0);
+        switch(n1) {
+                case 1:
+                    login();
+                    break;
+                case 2:
+                    newUser();
+                    break;
+        }
     }
 
     private static void login() {
@@ -50,6 +48,11 @@ public class Main {
     private static void newUser() {
         System.out.println("Enter name");
         String name = sc.next();
+        if(db.userExists(name))
+        {
+            System.out.println("User Exists\n");
+            newUser();
+        }
         System.out.println("Enter email");
         String email = sc.next();
         System.out.println("Enter Phone Number");

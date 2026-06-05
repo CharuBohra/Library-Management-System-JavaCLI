@@ -1,19 +1,27 @@
     package Library;
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
-public class Database {
+    public class Database {
 
     private ArrayList<User> users = new ArrayList<User>();
     private ArrayList<String> usernames = new ArrayList<String>();
     private ArrayList<Book> books = new ArrayList<Book>();
     private ArrayList<String> booknames = new ArrayList<String>();
     private ArrayList<Order> orders = new ArrayList<Order>();
+    private ArrayList<Borrowing> borrowings = new ArrayList<Borrowing>();
 
     private File usersFile = new File("src/data/Users");
     private File booksFile = new File("src/data/Books");
     private File ordersFile = new File("src/data/Orders");
+    private File borrowingsFile = new File("src/data/Borrowings");
 
     public Database(){
         if(!usersFile.exists()){
@@ -39,9 +47,18 @@ public class Database {
                 throw new RuntimeException(e);
             }
         }
+        if(!borrowingsFile.exists())
+        {
+            try{
+                borrowingsFile.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         getUsers();
         getBooks();
         getOrders();
+        getBorrowings();
     }
 
     public void AddUser(User s)
@@ -233,6 +250,14 @@ public class Database {
                 throw new RuntimeException(e);
             }
         }
+        if(borrowingsFile.exists())
+        {
+            try{
+                borrowingsFile.delete();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
     public void AddOrder(Order order,Book book, int bookIndex)
     {
@@ -281,6 +306,17 @@ public class Database {
             }
         }
     }
+    public boolean userExists(String name){
+        boolean f = false;
+        for(User user : users)
+        {
+            if(user.getName().toLowerCase().equals(name.toLowerCase())){
+                f=true;
+                break;
+            }
+        }
+        return f;
+    }
     private User getUserByName(String name)
     {
         User u = new NormalUser("");
@@ -304,5 +340,75 @@ public class Database {
     public ArrayList<Order> getAllOrders()
     {
         return orders;
+    }
+
+    private void getBorrowings(){
+        String text1 = "";
+        try {
+            BufferedReader br1 = new BufferedReader(new FileReader(borrowingsFile));
+            String s1;
+            while ((s1 = br1.readLine()) != null) {
+                text1 = text1 + s1;
+            }
+            br1.close();
+        } catch (FileNotFoundException e) {
+            System.err.println(e.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (!text1.equals("") || !text1.isEmpty()) {
+            String[] a1 = text1.split("<NewBorrowing/>");
+            for (String s : a1) {
+                Borrowing borrowing = parseBorrowings(s);
+                borrowings.add(borrowing);
+            }
+        }
+    }
+    private void saveBorrowings(){
+        String text1 = "";
+        for(Borrowing borrowing : borrowings)
+        {
+            text1 = text1 + borrowing.toString2() + "<NewBorrowing/>\n";
+        }
+        try{
+            PrintWriter pw = new PrintWriter(borrowingsFile);
+            pw.print(text1);
+            pw.close();
+            //System.err.println("Data Saved");
+        }catch (Exception e)
+        {
+            System.err.println(e.toString());
+        }
+    }
+
+    private Borrowing parseBorrowings(String s)
+    {
+        String[] a = s.split("<N/>");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate start = LocalDate.parse(a[0],formatter);
+        LocalDate finish = LocalDate.parse(a[1],formatter);
+        Book book = getBook(getBook(a[3]));
+        User user = getUserByName(a[4]);
+        Borrowing brw = new Borrowing(start,finish,book,user);
+        return brw;
+    }
+
+    public void BorrowBook(Borrowing brw,Book book, int bookIndex){
+        borrowings.add(brw);
+        books.set(bookIndex,book);
+        saveBorrowings();
+        saveBooks();
+    }
+
+    public ArrayList<Borrowing> getBrws(){
+        return borrowings;
+    }
+
+    public void returnBook(Borrowing b,Book book, int bookIndex)
+    {
+        borrowings.remove(b);
+        books.set(bookIndex,book);
+        saveBorrowings();
+        saveBooks();
     }
 }
