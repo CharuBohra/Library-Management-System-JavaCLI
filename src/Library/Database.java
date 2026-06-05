@@ -31,6 +31,7 @@ public class Database {
             }
         }
         getUsers();
+        getBooks();
     }
 
     public void AddUser(User s)
@@ -172,4 +173,28 @@ public class Database {
         return book;
     }
 
+    public ArrayList<Book> getAllBooks(){
+        return books;
+    }
+
+    public int getBook(String bookname){
+        int i=-1;
+        for(Book book : books)
+        {
+            if(book.getName().equals(bookname)) {
+                i = books.indexOf(book);
+            }
+        }
+        return i;
+    }
+    public Book getBook(int i)
+    {
+        return books.get(i);
+    }
+    public void deleteBook(int i)
+    {
+        books.remove(i);
+        booknames.remove(i);
+        saveBooks();
+    }
 }
