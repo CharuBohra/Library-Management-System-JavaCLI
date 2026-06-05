@@ -32,7 +32,7 @@ public class NormalUser extends User {
     @Override
     public  void menu(Database db , User user)
     {
-        System.out.println("1. View Books");
+        System.out.println("1. View data.Books");
         System.out.println("2. Search");
         System.out.println("3. Place Order");
         System.out.println("4. Borrow Book");
@@ -44,5 +44,12 @@ public class NormalUser extends User {
         int n = sc.nextInt();
         this.operations[n-1].oper(db,user);
         sc.close();
+    }
+
+
+
+    @Override
+    public String toString(){
+        return name+"<N/>"+email+"<N/>"+phoneNumber+"<N/>"+"Normal";
     }
 }

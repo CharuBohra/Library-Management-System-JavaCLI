@@ -3,7 +3,7 @@ package Library;
 public abstract class User {
     protected String name;
     protected String email;
-    protected String PhoneNumber;
+    protected String phoneNumber;
     protected IOOperation[] operations;
 
     public User() {
@@ -17,13 +17,12 @@ public abstract class User {
     public User(String name,String email, String phoneNumber) {
         this.name = name;
         this.email = email;
-        PhoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -37,12 +36,13 @@ public abstract class User {
     }
 
     public String getPhoneNumber() {
-        return PhoneNumber;
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        PhoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 
+    abstract public String toString();
     abstract public void menu(Database db , User user);
 }
