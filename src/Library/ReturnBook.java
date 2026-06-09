@@ -8,29 +8,32 @@ public class ReturnBook implements IOOperation{
         System.out.println("Enter book name: ");
         Scanner sc = new Scanner(System.in);
         String bookname = sc.next();
-        if(!db.getBrws().isEmpty())
-        {
-            Borrowing borrowingToRemove = null;
-            for(Borrowing b: db.getBrws()){
-                if(b.getBook().getName().equals(bookname) && b.getUser().getName().equals(user.getName())){
+        if(!db.getBrws().isEmpty()) {
+            //Borrowing borrowingToRemove = null;
+            boolean found = false;
+            for (Borrowing b : db.getBrws()) {
+                if (b.getBook().getName().equals(bookname) && b.getUser().getName().equals(user.getName())) {
+
+                    found = true;
+
                     Book book = b.getBook();
                     int i = db.getAllBooks().indexOf(book);
-                    if(b.getDaysLeft()<0)
-                    {
+                    if (b.getDaysLeft() < 0) {
                         System.out.println("You are late!\n"
-                                +"You have to pay "+ Math.abs(b.getDaysLeft()*50)+" as fine");
+                                + "You have to pay " + Math.abs(b.getDaysLeft() * 50) + " as fine");
                     }
-                    book.setBorrowCopies(book.getBorrowCopies()+1);
-                    borrowingToRemove = b;
-                    db.returnBook(borrowingToRemove,book,i);
+                    book.setBorrowCopies(book.getBorrowCopies() + 1);
+                    db.returnBook(b, book, i);
                     System.out.println("book returned \n Thank you!!!");
                     break;
-                }else{
-                    System.out.println("you didn't borrow this book!\n");
                 }
             }
-        }else{
-            System.out.println("you didnt borrow this book!\n");
+            if (!found) {
+                System.out.println("You didn't borrow this book!");
+            }
+        }
+        else{
+            System.out.println("You didn't borrow any books!");
         }
         user.menu(db,user);
     }

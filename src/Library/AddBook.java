@@ -21,7 +21,8 @@ public class AddBook implements IOOperation{
         System.out.println("Enter book publisher : ");
         book.setPublisher(sc.next());
         System.out.println("Enter book collection address : ");
-        book.setAddress(sc.next());
+        sc.nextLine();
+        book.setAddress(sc.nextLine());
         System.out.println("Enter quantity : ");
         book.setQty(sc.nextInt());
         System.out.println("Enter book price : ");

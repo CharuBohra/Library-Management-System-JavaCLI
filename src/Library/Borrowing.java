@@ -66,6 +66,6 @@ public class Borrowing {
     }
 
     public String toString2(){
-        return getStart()+"<N/>"+getFinish()+"<N/>"+getDaysLeft()+"<N/>"+book.getName()+"<N/>"+user.getName()+"<N/>";
+        return getStart()+"<N/>"+getFinish()+"<N/>"+getDaysLeft()+"<N/>"+book.getName()+"<N/>"+user.getName();
     }
 }

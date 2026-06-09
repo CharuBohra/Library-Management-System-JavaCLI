@@ -18,6 +18,20 @@ public class PlaceOrder implements IOOperation{
             order.setUser(user);
             System.out.println("Enter Quantity : ");
             int qty = sc.nextInt();
+            if(qty <= 0){
+                System.out.println("Invalid quantity");
+                user.menu(db,user);
+                return;
+            }
+            if(qty > book.getQty()){
+                System.out.println(
+                        "Only " + book.getQty() +
+                                " copies are available."
+                );
+
+                user.menu(db,user);
+                return;
+            }
             order.setQty(qty);
             order.setPrice(book.getPrice()*qty);
             int bookIndex = db.getBook(book.getName());

@@ -23,8 +23,9 @@ public class BorrowBook implements  IOOperation{
             }
             if(n)
             {
-                if(book.getBorrowCopies()>1)
+                if(book.getBorrowCopies()>0)
                 {
+                    System.out.println("Logged In User = " + user.getName());
                     Borrowing borrowing = new Borrowing(book,user);
                     book.setBorrowCopies(book.getBorrowCopies()-1);
                     db.BorrowBook(borrowing,book,i);

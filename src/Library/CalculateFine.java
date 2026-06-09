@@ -9,23 +9,23 @@ public class CalculateFine implements IOOperation{
         Scanner sc = new Scanner(System.in);
         String bookname = sc.next();
 
-        boolean found = true;
+        boolean found = false;
         for (Borrowing b: db.getBrws()){
             if(b.getBook().getName().equals(bookname) && b.getUser().getName().equals(user.getName())){
+                found = true;
                 if(b.getDaysLeft()<0)
                 {
                     System.out.println("You are late!\n"
                                 +"You have to pay "+ Math.abs(b.getDaysLeft()*50)+" as fine");
                 }else{
-                    System.out.println("you don't have to pay fine");
+                    System.out.println("You don't have to pay fine");
                 }
-                found = false;
                 break;
             }
-            if(found)
-            {
-                System.out.println("you didn't borrow this book\n");
-            }
+        }
+        if(!found)
+        {
+            System.out.println("you didn't borrow this book\n");
         }
         user.menu(db,user);
     }
